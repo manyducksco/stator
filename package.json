@@ -1,0 +1,28 @@
+{
+  "name": "@repo/stator",
+  "description": "Memoized context stores for React",
+  "version": "1.0.0",
+  "sideEffects": false,
+  "author": "Tony McCoy <tony@manyducks.co>",
+  "type": "module",
+  "exports": {
+    ".": "./dist/main.js"
+  },
+  "main": "./dist/main.js",
+  "types": "./dist/main.ts",
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint . --max-warnings 0",
+    "check-types": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "eslint": "^9.39.1",
+    "typescript": "5.9.2"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  }
+}
