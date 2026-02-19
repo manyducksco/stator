@@ -1,4 +1,4 @@
-# Stator
+# @manyducksco/stator
 
 Stator answers the question, "How do I share one hook's state between multiple components?" React's answer is [Context](https://react.dev/learn/passing-data-deeply-with-context). Stator makes this process even simpler.
 
