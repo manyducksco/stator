@@ -75,9 +75,9 @@ class Store<T> {
 /**
  * Defines a new store, returning its provider and hook.
  */
-export function createStore<Value, Options>(
+export function createStore<Value>(
   fn: () => Value,
-): [StoreProvider<Options>, StoreHook<Value>];
+): [StoreProvider<undefined>, StoreHook<Value>];
 
 /**
  * Defines a new store, returning its provider and hook.
@@ -85,6 +85,13 @@ export function createStore<Value, Options>(
 export function createStore<Value, Options>(
   fn: (options: Options) => Value,
 ): [StoreProviderWithOptions<Options>, StoreHook<Value>];
+
+/**
+ * Defines a new store, returning its provider and hook.
+ */
+export function createStore<Value, Options>(
+  fn: (options?: Options) => Value,
+): [StoreProviderWithOptions<Options | undefined>, StoreHook<Value>];
 
 export function createStore<Value, Options>(
   fn: (options?: Options) => Value,
