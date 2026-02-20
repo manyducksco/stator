@@ -2,11 +2,18 @@
 
 Stator answers the question, "How do I share one hook's state between multiple components?" Stator makes this simple.
 
-Let's start with a familiar example:
+## Installation
+
+```bash
+npm install @manyducksco/stator
+```
 
 ## Example: Counter Store
 
 ```tsx
+import { createStore } from "@manyducksco/stator";
+import { useState, useCallback } from "react";
+
 type CounterOptions = {
   initialValue?: number;
 };
@@ -39,6 +46,8 @@ const [CounterProvider, useCounter] = createStore((options: CounterOptions) => {
 function MyApp() {
   return (
     // One instance of your store is created wherever you render the provider.
+    // You can render multiple `<CounterProvider>`s in different parts of your app,
+    // and each one maintains its own isolated state.
     <CounterProvider options={{ initialValue: 51 }}>
       <CounterDisplay />
       <CounterControls />
@@ -47,7 +56,8 @@ function MyApp() {
 }
 
 function CounterDisplay() {
-  // And all children can access the same instance via the hook.
+  // All children can access the same instance via the hook.
+  // TypeScript will automatically infer the correct return types here.
   const { value } = useCounter();
 
   return <p>Count is: {value}</p>;
@@ -87,7 +97,7 @@ function CounterControls() {
     state.decrement,
     state.reset,
   ]);
-  // We don't care about the value here. We only need the functions to modify it.
+  // We don't care about the value, only the functions to modify it.
   // Because we've wrapped them in `useCallback` they will always reference the same functions.
   // Changes to the counter value will never cause this component to render.
 
@@ -104,7 +114,24 @@ function CounterControls() {
 > [!NOTE]
 > The hook performs a shallow check on the selected value that treats arrays or objects with equivalent keys and values as equal.
 > A selector may return an array or object with multiple values (like in our CounterControls example above).
-> In this case the return value is just a container. It's the items _inside_ the array are compared for equality.
+> In this case the return value is just a container. It's the items _inside_ the array that are compared for equality.
+
+### Memoize everything
+
+> [!IMPORTANT]
+> Because Stator relies on referential equality when comparing selected state, you must memoize any selected functions and derived objects returned by your base hook.
+
+If you return a new function or object reference on every render, components selecting those values will also re-render every time, defeating the selector optimization.
+
+```ts
+// ❌ Bad: This creates a new function reference every render!
+const increment = (amount = 1) => setValue((current) => current + amount);
+
+// ✅ Good: The reference remains stable.
+const increment = useCallback((amount = 1) => {
+  setValue((current) => current + amount);
+}, []);
+```
 
 ## Prior art
 
