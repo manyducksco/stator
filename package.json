@@ -1,25 +1,31 @@
 {
-  "name": "@repo/stator",
+  "name": "@manyducksco/stator",
   "description": "Memoized context stores for React",
   "version": "1.0.0",
   "sideEffects": false,
   "author": "Tony McCoy <tony@manyducks.co>",
   "type": "module",
   "exports": {
-    ".": "./dist/main.js"
+    ".": "./dist/stator.js"
   },
-  "main": "./dist/main.js",
-  "types": "./dist/main.ts",
+  "main": "./dist/stator.js",
+  "types": "./dist/stator.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "vite build && tsc",
+    "test": "vitest",
     "lint": "eslint . --max-warnings 0",
     "check-types": "tsc --noEmit"
   },
   "devDependencies": {
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^22.19.11",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
     "eslint": "^9.39.1",
-    "typescript": "5.9.2"
+    "jsdom": "^28.1.0",
+    "typescript": "5.9.2",
+    "vite": "^7.3.1",
+    "vitest": "^4.0.18"
   },
   "peerDependencies": {
     "react": ">=18",
