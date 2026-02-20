@@ -1,17 +1,17 @@
-# @manyducksco/stator
+# @manyducks.co/stator
 
 Stator answers the question, "How do I share one hook's state between multiple components?" Stator makes this simple.
 
 ## Installation
 
 ```bash
-npm install @manyducksco/stator
+npm install @manyducks.co/stator
 ```
 
 ## Example: Counter Store
 
 ```tsx
-import { createStore } from "@manyducksco/stator";
+import { createStore } from "@manyducks.co/stator";
 import { useState, useCallback } from "react";
 
 type CounterOptions = {
